@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Cart</title>
+    <style>
+        .error{
+            color:red;
+            font-size: small;
+        }
+        #id {
+            margin-left : 50px;
+            font-size: 200%;
+        }
+        .class {
+            margin-left: 120px;
+        }
+        .logo {
+        background-color:rgb(125, 98, 103);
+        height:40px;
+        width:70px;
+        margin-top:0px;
+        margin-left:180px;
+        color:white;
+
+        }
+        .mydiv {
+        height:620px;
+        width: 480px;
+        border: 10px;
+        border-radius: 25px;
+        background-color:   rgb(225, 250, 241);
+        margin-left: 80px;
+        padding: 10px;
+        box-shadow : 15px 15px 40px rgba(97, 23, 23, 0.839);
+        }
+
+        .btn {
+        background-color: rgb(44, 144, 251);        
+        color: white;
+        border : 10px;
+        height : 50px;
+        width : 120px;
+        border-radius : 15px;
+        padding: 10px 12px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-left: 50px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+</head>
+<body style="background-color: rgb(88, 82, 84)">
+    <h1 style="color:green"><center><u>Health Cart</u></center></h1>
+
+    <br>
+    <div class = "mydiv">
+    <form class="class" id="signup" name="signup">
+        {% csrf_token %}
+        <h2 id = "id"><b>Sign Up</b></h2><br>
+        <label for="first_name"><b>First Name:</b></label><br>
+        <input type="text" id="first_name" name="first_name" placeholder ="First Name" autocorrect="on">
+    <br>
+    <br>
+        <br>
+        <label for="last_name">Last Name:</label><br>
+        <input type="text" id="last_name" name="last_name" placeholder ="Last Name">
+    <br>
+    <br>
+        <br>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" placeholder ="Age" autocorrect="on">
+    <br>
+    <br>
+        <br>
+        <label for="gender">Gender:</label><br>
+        <select id="gender" name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        </select>
+    <br>
+    <br>
+        <br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" placeholder = "example@gmail.com" autocorrect="on"> 
+    <br>
+    <br>
+        <br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder ="Password">
+    <br>
+    <br>
+    <br>
+    <button type="submit" value="submit" class = "btn"><center>Sing up</center></button>
+    </div>
+    </form>
+    <script>
+    jQuery.validator.setDefaults({
+    debug: true,
+    success: "valid"
+    });
+    $( "#signup" ).validate({
+    rules: {
+        first_name: {
+            required:true,
+            minlength : 2,
+            maxlength:20
+        },
+        last_name :{
+            required:true,
+            minlength:2,
+            maxlength:20
+        },
+        age:{
+            required:true,
+            minlength:1,
+            maxlength:2
+        }
+    }
+    });
+
+    $("#signup").submit(function (e){
+        var valid_form = $("signup").valid()
+        if(valid_form) {
+            var form = $(this);
+            console.log(props.form);
+            $.ajax({
+                type: "POST",
+                url : "/",
+                data : form.serialize(),
+                success : function (data) {
+                    window.location.href = "/login";
+                }
+            });
+        }
+    })
+</script>
+    </body>
+</html>
+
+
+
+
